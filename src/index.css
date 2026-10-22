@@ -1,0 +1,88 @@
+/* -------------------------------------------------------------------------
+   TAGHRID — design tokens
+   Obsidian Black / Champagne Gold / Royal Burgundy / Ivory, strictly.
+   ---------------------------------------------------------------------- */
+:root {
+  --obsidian: #08080b;
+  --obsidian-soft: #0f0e13;
+  --gold: #d4af70;
+  --gold-bright: #e9cf9b;
+  --burgundy: #541e35;
+  --burgundy-deep: #330f20;
+  --ivory: #f0e5d0;
+
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--obsidian);
+  color: var(--ivory);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+/* A faint, slow-moving gold grain + burgundy vignette sits behind everything.
+   This is the site's one ambient texture — nothing else gets a glow. */
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(84, 30, 53, 0.35), transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(84, 30, 53, 0.25), transparent 55%),
+    var(--obsidian);
+}
+
+.app-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+::selection {
+  background: var(--burgundy);
+  color: var(--gold-bright);
+}
+
+/* Visible keyboard focus everywhere, in gold, no exceptions. */
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
